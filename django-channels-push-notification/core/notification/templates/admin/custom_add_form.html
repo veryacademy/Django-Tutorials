@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h2>Send Notification</h2>
+  <form method="post" action="{% url 'admin:send-notification' %}">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+        <textarea class="form-control" rows="5" style="width: 50%;" name="{{ field.html_name }}" id="{{ field.auto_id }}">{{ field.value }}</textarea>
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Send Notification</button>
+  </form>
+{% endblock %}
